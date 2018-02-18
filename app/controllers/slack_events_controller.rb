@@ -24,7 +24,7 @@ class SlackEventsController < ApplicationController
       {
         token: ENV['BOT_USER_OAUTH_ACCESS_TOKEN'],
         channel: channel,
-        text: "friltanはいないよ。こっちでどうぞ:\n`warietan #{text.sub(/\Afriltan/, 'warietan')}`"
+        text: "friltanはいないよ。こっちでどうぞ:\n`#{text.sub(/\Afriltan/, 'warietan')}`"
       }
     when /\Awarietan echo /
       {
