@@ -8,17 +8,27 @@ class SlackEventsController < ApplicationController
     elsif params.dig('event', 'username') == 'warietan'
       head :ok
     elsif params.dig('event', 'type') == 'message'
-      text = params.dig('event', 'text')
-      channel = params.dig('event', 'channel')
-      post_params = {
-        token: ENV['BOT_USER_OAUTH_ACCESS_TOKEN'],
-        channel: channel,
-        text: text,
-      }
-      system('curl', '-sif', '-d', URI.encode_www_form(post_params), 'https://slack.com/api/chat.postMessage')
+      post_params = self.class.react(params)
+      if post_params
+        system('curl', '-sif', '-d', URI.encode_www_form(post_params), 'https://slack.com/api/chat.postMessage')
+      end
       head :ok
     else
       head :ok
+    end
+  end
+
+  def self.react(params)
+    text = params.dig('event', 'text')
+    channel = params.dig('event', 'channel')
+    if /\Awarietan echo / =~ text
+      {
+        token: ENV['BOT_USER_OAUTH_ACCESS_TOKEN'],
+        channel: channel,
+        text: text[/\Awarietan echo (.*)/, 1],
+      }
+    else
+      nil
     end
   end
 end
