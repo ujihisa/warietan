@@ -1,8 +1,6 @@
 class SlackEventsController < ApplicationController
   # params is a hash like {"token":"...","challenge":"...","type":"..."}
   def index
-    # mention:
-    # {"token"=>"aFIwScpfjjm7O6KRAXU7rH6h", "team_id"=>"T8YE2DRT3", "api_app_id"=>"A99Q14KPG", "event"=>{"type"=>"message", "user"=>"U98PNCASE", "text"=>"test", "ts"=>"1518935809.000007", "channel"=>"C992P87ED", "event_ts"=>"1518935809.000007"}, "type"=>"event_callback", "event_id"=>"Ev9A72H3PA", "event_time"=>1518935809, "authed_users"=>["U98PNCASE"], "slack_event"=>{"token"=>"aFIwScpfjjm7O6KRAXU7rH6h", "team_id"=>"T8YE2DRT3", "api_app_id"=>"A99Q14KPG", "event"=>{"type"=>"message", "user"=>"U98PNCASE", "text"=>"test", "ts"=>"1518935809.000007", "channel"=>"C992P87ED", "event_ts"=>"1518935809.000007"}, "type"=>"event_callback", "event_id"=>"Ev9A72H3PA", "event_time"=>1518935809, "authed_users"=>["U98PNCASE"]}}
     if params.dig('type') == 'url_verification'
       render json: {challenge: params.dig('challenge')}
     elsif params.dig('event', 'username') == 'warietan'
