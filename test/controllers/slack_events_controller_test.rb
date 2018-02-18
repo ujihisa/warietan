@@ -14,4 +14,16 @@ class SlackEventsControllerTest < ActionDispatch::IntegrationTest
       {token: ENV['BOT_USER_OAUTH_ACCESS_TOKEN'], channel: 'aaa', text: 'hello'},
       post_params)
   end
+
+  test '.react() `えらんで` samples one of given' do
+    post_params = SlackEventsController.react(
+      {'event' =>
+       {'text' => 'warietan えらんで 111 222 333', 'channel' => 'aaa'}})
+    assert(
+      [
+        {token: ENV['BOT_USER_OAUTH_ACCESS_TOKEN'], channel: 'aaa', text: '111'},
+        {token: ENV['BOT_USER_OAUTH_ACCESS_TOKEN'], channel: 'aaa', text: '222'},
+        {token: ENV['BOT_USER_OAUTH_ACCESS_TOKEN'], channel: 'aaa', text: '333'}
+      ].include?(post_params))
+  end
 end

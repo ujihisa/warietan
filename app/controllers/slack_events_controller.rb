@@ -21,11 +21,19 @@ class SlackEventsController < ApplicationController
   def self.react(params)
     text = params.dig('event', 'text')
     channel = params.dig('event', 'channel')
-    if /\Awarietan echo / =~ text
+    case text
+    when /\Awarietan echo /
       {
         token: ENV['BOT_USER_OAUTH_ACCESS_TOKEN'],
         channel: channel,
         text: text[/\Awarietan echo (.*)/, 1],
+      }
+    when /\Awarietan えらんで /
+      candidates = text[/\Awarietan えらんで (.*)/, 1].split
+      {
+        token: ENV['BOT_USER_OAUTH_ACCESS_TOKEN'],
+        channel: channel,
+        text: candidates.sample,
       }
     else
       nil
