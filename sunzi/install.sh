@@ -22,6 +22,7 @@ sunzi.mute "apt-get -y upgrade"
 
 # Install packages
 apt-get -y install git-core ntp curl
+apt-get -y install htop tree vim nginx
 
 # Install sysstat, then configure if this is a new install.
 if sunzi.install "sysstat"; then
@@ -54,3 +55,15 @@ if [[ "$(which ruby)" != /usr/local/rvm/rubies/ruby-$ruby_version* ]]; then
   # Install Bundler
   gem install bundler
 fi
+
+# nginx
+rm -f /etc/nginx/sites-enabled/default
+cat <<EOS > /etc/nginx/conf.d/warietan.conf
+server {
+	listen 0.0.0.0:80;
+	location / {
+		proxy_pass  http://0.0.0.0:3000;
+	}
+}
+EOS
+systemctl restart nginx
