@@ -20,6 +20,12 @@ class SlackEventsController < ApplicationController
     text = params.dig('event', 'text')
     channel = params.dig('event', 'channel')
     case text
+    when /\Afriltan (echo|えらんで) /
+      {
+        token: ENV['BOT_USER_OAUTH_ACCESS_TOKEN'],
+        channel: channel,
+        text: "friltanはいないよ。こっちでどうぞ:\n`warietan #{text.sub(/\Afriltan/, 'warietan')}`"
+      }
     when /\Awarietan echo /
       {
         token: ENV['BOT_USER_OAUTH_ACCESS_TOKEN'],
