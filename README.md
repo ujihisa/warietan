@@ -1,24 +1,24 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Usage
 
-Things you may want to cover:
+* Logging
+    * Stores to mysql (as of 2018-02)
+        * Maybe elasticsearch in the future
+* slack commands
+    * `warietan -h`
+    * `warietan えらんで A B C`
+    * `warietan echo A`
 
-* Ruby version
+## TODOs
 
-* System dependencies
+* Implement `-h`
+* Setup auto-deployment triggered by github
 
-* Configuration
+## System archtecture
 
-* Database creation
+(Meaningful only for ujihisa)
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Slack -> kkr public ip
+* GitHub -> kkr public ip
+* kkr nginx -> ubu16 puma
