@@ -21,4 +21,5 @@
 
 * Slack -> kkr public ip
 * GitHub -> kkr public ip
-* kkr nginx -> ubu16 puma
+* kkr nginx -> ubu16 warietan puma
+* kkr nginx -> ubu16 sinatra -> warietan make
