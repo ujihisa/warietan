@@ -8,7 +8,8 @@ class SlackEventsController < ApplicationController
     elsif params.dig('event', 'type') == 'message'
       post_params = self.class.react(params)
       if post_params
-        system('curl', '-sif', '-d', URI.encode_www_form(post_params), 'https://slack.com/api/chat.postMessage')
+        http_message = HTTPClient.post('https://slack.com/api/chat.postMessage', post_params)
+        # Bugsnag.notify
       end
       head :ok
     else
